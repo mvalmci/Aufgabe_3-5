@@ -52,4 +52,19 @@
 		"date": "11.3.2020",
 		"result_link": "data/ekg_data/04_Belastung.txt"
 	}]
+}, {
+	"id": 1,
+	"date_of_birth": 1989,
+	"firstname": "Dylan",
+	"lastname": "Groenewegen",
+    "picture_path" : "data/pictures/DylanGroenewegen_klein.jpg",
+	"gender" : "male",
+	"ekg_tests": [{
+		"id": 5,
+		"date": "10.2.1900",
+		"result_link": "data/ekg_data/01_Ruhe.txt"}, {
+		"id": 5,
+		"date": "11.3.2020",
+		"result_link": "data/ekg_data/04_Belastung.txt"
+	}]
 }]
