@@ -15,13 +15,13 @@ def read_my_csv():
 
     return df
 
- 
+'''
 def filter_data(df):
     df["zone1"] = df["HeartRate"] < 100
     df["zone2"] = (df["HeartRate"] >= 100) & (df["HeartRate"] < 150)
     df["zone3"] = (df["HeartRate"] >= 150) & (df["HeartRate"] < 200)
     df["zone4"] = df["HeartRate"] >= 200
-
+'''
 
 def assign_zones(df):
     # Zone-Spalte (1-4) erstellen
@@ -84,10 +84,6 @@ def print_average_power_per_zone(df):
     print(f"Average power in zone 3: {df['zone3_power'].iloc[0]:.2f} W")
     print(f"Average power in zone 4: {df['zone4_power'].iloc[0]:.2f} W")
 
-
-
-
-
 if __name__ == "__main__":
 
     df = read_my_csv()
@@ -95,6 +91,6 @@ if __name__ == "__main__":
     fig = make_plot(df)
     fig.show()
 
-    filter_data(df)
+    #filter_data(df)
     how_much_time_is_spent_in_the_zones(df)
     print_average_power_per_zone(df)
