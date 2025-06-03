@@ -59,30 +59,21 @@ def make_plot_power(df):
     return fig2
 
 def how_much_time_is_spent_in_the_zones(df):
-    # Falls filter_data das DataFrame verändert, das Ergebnis zuweisen!
-    # df = filter_data(df)
-    
     total = len(df)
-    time_in_zone_1 = df["zone1"].sum() / total
-    time_in_zone_2 = df["zone2"].sum() / total
-    time_in_zone_3 = df["zone3"].sum() / total
-    time_in_zone_4 = df["zone4"].sum() / total
+    return {
+        f"zone{i}": (df["zone"] == i).sum() / total
+        for i in range(1, 5)
+    }
 
-    print(f"Time in zone 1: {time_in_zone_1:.2%}")
-    print(f"Time in zone 2: {time_in_zone_2:.2%}")
-    print(f"Time in zone 3: {time_in_zone_3:.2%}")
-    print(f"Time in zone 4: {time_in_zone_4:.2%}")
 
-def print_average_power_per_zone(df):
-    df["zone1_power"] = df["PowerOriginal"][df["zone1"]].mean()
-    df["zone2_power"] = df["PowerOriginal"][df["zone2"]].mean()
-    df["zone3_power"] = df["PowerOriginal"][df["zone3"]].mean()
-    df["zone4_power"] = df["PowerOriginal"][df["zone4"]].mean()
-
-    print(f"Average power in zone 1: {df['zone1_power'].iloc[0]:.2f} W")
-    print(f"Average power in zone 2: {df['zone2_power'].iloc[0]:.2f} W")
-    print(f"Average power in zone 3: {df['zone3_power'].iloc[0]:.2f} W")
-    print(f"Average power in zone 4: {df['zone4_power'].iloc[0]:.2f} W")
+'''
+def average_power_per_zone(df):
+    
+    return {
+        f"zone{i}": df[df["zone"] == i]["Power"].mean()
+        for i in range(1, 5)
+    }
+'''
 
 if __name__ == "__main__":
 
@@ -93,4 +84,4 @@ if __name__ == "__main__":
 
     #filter_data(df)
     how_much_time_is_spent_in_the_zones(df)
-    print_average_power_per_zone(df)
+    #average_power_per_zone(df)
