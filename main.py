@@ -31,31 +31,37 @@ st.image(image, caption=st.session_state.current_user)
 
 
 
-tab1, tab2, tab3= st.tabs(["ECG-Data", "HeartRate-Data", "Power-Data"])
+tab1, tab2= st.tabs(["HeartRate-Data", "Power-Data"])
 
-
-with tab1:
-    st.write("# ECG")
     
-with tab2:
+with tab1:
     df = read_my_csv()
-    df = assign_zones(df)
+    input_max_hr = st.number_input(
+        "Maximale Herzfrequenz (bpm)",
+        min_value=100,
+        max_value=250,
+        value=180,
+        step=1,
+        help="Die maximale Herzfrequenz wird für die Zonenberechnung benötigt."
+    )
+    df = assign_zones(df, max_hr=input_max_hr)
     fig1 = make_plot(df)
     st.plotly_chart(fig1)
 
     zone_times = how_much_time_is_spent_in_the_zones(df)
 
-    a, b, c, d = st.columns(4)
+    a, b, c, d, e = st.columns(5)
 
-    a.metric("Zone 1", f"{zone_times['zone1']*100:.1f} %", "-", border=True)
-    b.metric("Zone 2", f"{zone_times['zone2']*100:.1f} %", "+", border=True)
-    c.metric("Zone 3", f"{zone_times['zone3']*100:.1f} %", "+", border=True)
-    d.metric("Zone 4", f"{zone_times['zone4']*100:.1f} %", "-", border=True)
+    a.metric("Zone 1 in min.", f"{zone_times['zone1']:.1f}", "+", border=True)
+    b.metric("Zone 2 in min.", f"{zone_times['zone2']:.1f}", "+", border=True)
+    c.metric("Zone 3 in min.", f"{zone_times['zone3']:.1f}", "+", border=True)
+    d.metric("Zone 4 in min.", f"{zone_times['zone4']:.1f}", "+", border=True)
+    e.metric("Zone 5 in min.", f"{zone_times['zone5']:.1f}", "+", border=True)
     
 
-with tab3:
+with tab2:
     df = read_my_csv()
-    df = assign_zones(df)
+    df = assign_zones(df, max_hr=190)
     fig2 = make_plot_power(df)
     st.plotly_chart(fig2)
 

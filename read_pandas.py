@@ -23,25 +23,27 @@ def filter_data(df):
     df["zone4"] = df["HeartRate"] >= 200
 '''
 
-def assign_zones(df):
-    # Zone-Spalte (1-4) erstellen
+def assign_zones(df, max_hr=190):
+
     df["zone"] = np.select(
         [
-            df["HeartRate"] < 100,
-            (df["HeartRate"] >= 100) & (df["HeartRate"] < 150),
-            (df["HeartRate"] >= 150) & (df["HeartRate"] < 200),
-            df["HeartRate"] >= 200
+            df["HeartRate"] < 0.6 * max_hr,
+            (df["HeartRate"] >= 0.6 * max_hr) & (df["HeartRate"] < 0.7 * max_hr),
+            (df["HeartRate"] >= 0.7 * max_hr) & (df["HeartRate"] < 0.8 * max_hr),
+            (df["HeartRate"] >= 0.8 * max_hr) & (df["HeartRate"] < 0.9 * max_hr),
+            df["HeartRate"] >= 0.9 * max_hr
         ],
-        [1, 2, 3, 4],
+        [1, 2, 3, 4, 5],
         default=0
     )
     return df
+
 
 def make_plot(df):
     # HeartRate farblich nach Zonen
     fig1 = px.scatter(
         df, x="Time", y="HeartRate", color="zone",
-        color_discrete_map={1:'blue', 2:'green', 3:'orange', 4:'red'},
+        color_discrete_map={1:'blue', 2:'green', 3:'orange', 4:'red', 5:'purple'},
         labels={"zone":"Herzfrequenz-Zone"},
         title="HeartRate farblich nach Zonen"
     )
@@ -58,11 +60,12 @@ def make_plot_power(df):
     
     return fig2
 
-def how_much_time_is_spent_in_the_zones(df):
-    total = len(df)
+def how_much_time_is_spent_in_the_zones(df, sampling_rate=1):
+    
+    sek_pro_wert = 1 / sampling_rate
     return {
-        f"zone{i}": (df["zone"] == i).sum() / total
-        for i in range(1, 5)
+        f"zone{i}": ((df["zone"] == i).sum() * sek_pro_wert) / 60
+        for i in range(1, 6)
     }
 
 
