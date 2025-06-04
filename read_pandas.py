@@ -69,14 +69,14 @@ def how_much_time_is_spent_in_the_zones(df, sampling_rate=1):
     }
 
 
-'''
+
 def average_power_per_zone(df):
     
     return {
-        f"zone{i}": df[df["zone"] == i]["Power"].mean()
-        for i in range(1, 5)
+        f"zone{i}": df[df["zone"] == i]["PowerOriginal"].mean()
+        for i in range(1, 6)
     }
-'''
+
 
 if __name__ == "__main__":
 

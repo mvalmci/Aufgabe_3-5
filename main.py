@@ -1,7 +1,7 @@
 import streamlit as st
 from read_data import load_person_data, get_person_list, get_picture_path
 from PIL import Image
-from read_pandas import read_my_csv, make_plot, how_much_time_is_spent_in_the_zones, assign_zones, make_plot_power
+from read_pandas import read_my_csv, make_plot, how_much_time_is_spent_in_the_zones, assign_zones, make_plot_power, average_power_per_zone
 
 person_data_dict = load_person_data()
 person_list_names = get_person_list(person_data_dict)
@@ -65,4 +65,12 @@ with tab2:
     fig2 = make_plot_power(df)
     st.plotly_chart(fig2)
 
+    zone_avg_power = average_power_per_zone(df)
 
+    f, g, h, j, k = st.columns(5)
+
+    f.metric("Ø Power Zone 1", f"{zone_avg_power['zone1']:.1f}", "+", border=True)
+    g.metric("Ø Power Zone 2", f"{zone_avg_power['zone2']:.1f}", "+", border=True)
+    h.metric("Ø Power Zone 3", f"{zone_avg_power['zone3']:.1f}", "+", border=True)
+    j.metric("Ø Power Zone 4", f"{zone_avg_power['zone4']:.1f}", "+", border=True)
+    k.metric("Ø Power Zone 5", f"{zone_avg_power['zone5']:.1f}", "+", border=True)

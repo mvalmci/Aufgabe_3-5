@@ -1,12 +1,12 @@
 [{
-	"id": 1,
+	"id": 5,
 	"date_of_birth": 1989,
 	"firstname": "Julian",
 	"lastname": "Huber",
     "picture_path" : "data/pictures/tb.jpg",
 	"gender" : "male",
 	"ekg_tests": [{
-		"id": 1,
+		"id": 5,
 		"date": "10.2.2023",
 		"result_link": "data/ekg_data/01_Ruhe.txt"}, {
 		"id": 2,
@@ -38,7 +38,7 @@
 		"result_link": "data/ekg_data/03_Ruhe.txt"
 	}]
 }, {
-	"id": 1,
+	"id": 4,
 	"date_of_birth": 1989,
 	"firstname": "Susanne",
 	"lastname": "Sausekopf",
@@ -60,10 +60,10 @@
     "picture_path" : "data/pictures/DylanGroenewegen_klein.jpg",
 	"gender" : "male",
 	"ekg_tests": [{
-		"id": 5,
+		"id": 1,
 		"date": "10.2.1900",
 		"result_link": "data/ekg_data/01_Ruhe.txt"}, {
-		"id": 5,
+		"id": 1,
 		"date": "11.3.2020",
 		"result_link": "data/ekg_data/04_Belastung.txt"
 	}]
