@@ -7,7 +7,7 @@
 
 ## Exercise 2: Interactive plot
 
-In this task, data points from a bicycle computer representing wattage values are extracted from a .csv file. These data points are then sorted in descending order using a bubble sort algorithm. Subsequently, the sorted data points are plotted over time, and the resulting plot is saved.
+In this task, we use Pandas to analyze power and heart rate data from a .csv file (activity.csv). We first load the data into a DataFrame and calculate both the mean and maximum power values. Using Plotly, we create an interactive plot displaying power and heart rate over time. The heart rate data is used to divide the activity into five zones based on a user-input maximum heart rate, and the time spent in each zone is shown in the app. Also, the average power in each zone is calculated and displayed.
 
 ## Saved Plot:
 ![ScreenshotApp](Bild1.png)
