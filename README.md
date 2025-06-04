@@ -10,9 +10,9 @@
 In this task, data points from a bicycle computer representing wattage values are extracted from a .csv file. These data points are then sorted in descending order using a bubble sort algorithm. Subsequently, the sorted data points are plotted over time, and the resulting plot is saved.
 
 ## Saved Plot:
-![ScreenshotApp](Bild1 2025-06-04 um 19.20.39_a0aa78f4.png)
-![ScreenshotApp](Bild2 2025-06-04 um 19.19.39_e8e86c5c.png)
-![ScreenshotApp](Bild3 2025-06-04 um 19.20.20_69828e0e.png)
+![ScreenshotApp](Bild1.png)
+![ScreenshotApp](Bild2.png)
+![ScreenshotApp](Bild3.png)
 
 ## Execution:
 1. Clone this repository in VS Code
