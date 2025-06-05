@@ -7,13 +7,18 @@ person_data_dict = load_person_data()
 person_list_names = get_person_list(person_data_dict)
 picture_path = get_picture_path(person_data_dict)
 
+#Streamlit
+st.set_page_config(
+    page_title="Patient ECG Data",
+    page_icon=":heart:",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 # Eine Überschrift der ersten Ebene
 st.write("# Centralized Database for Patient-Specific ECG Data")
 
 # Eine Überschrift der zweiten Ebene
 st.write("## Please select a patient")
-
-
 
 # Eine Auswahlbox
 # Auswahlbox
@@ -25,15 +30,10 @@ index_current_user = person_list_names.index(current_user)
 
 image = Image.open(picture_path[index_current_user])
 
-
 st.image(image, caption=st.session_state.current_user)
-
-
-
 
 tab1, tab2= st.tabs(["HeartRate-Data", "Power-Data"])
 
-    
 with tab1:
     df = read_my_csv()
     input_max_hr = st.number_input(
