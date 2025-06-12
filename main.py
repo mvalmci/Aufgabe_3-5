@@ -2,6 +2,8 @@ import streamlit as st
 from read_data import load_person_data, get_person_list, get_picture_path
 from PIL import Image
 from read_pandas import read_my_csv, make_plot, how_much_time_is_spent_in_the_zones, assign_zones, make_plot_power, average_power_per_zone
+from ekgdata import EKGdata
+import json
 
 person_data_dict = load_person_data()
 person_list_names = get_person_list(person_data_dict)
@@ -32,7 +34,7 @@ image = Image.open(picture_path[index_current_user])
 
 st.image(image, caption=st.session_state.current_user)
 
-tab1, tab2= st.tabs(["HeartRate-Data", "Power-Data"])
+tab1, tab2, tab3= st.tabs(["HeartRate-Data", "Power-Data", "ECG-Data"])
 
 with tab1:
     df = read_my_csv()
@@ -74,3 +76,16 @@ with tab2:
     h.metric("Ø Power Zone 3", f"{zone_avg_power['zone3']:.1f}", "+", border=True)
     j.metric("Ø Power Zone 4", f"{zone_avg_power['zone4']:.1f}", "+", border=True)
     k.metric("Ø Power Zone 5", f"{zone_avg_power['zone5']:.1f}", "+", border=True)
+
+with tab3:
+
+    file = open("data/person_db.json")
+    person_data = json.load(file)
+    ekg_liste = person_data[0]["ekg_tests"]
+    ekg_dict = EKGdata.load_ekg_data_by_id(ekg_liste, 2)
+    ekg = EKGdata(ekg_dict)
+    peaks = ekg.find_peaks(threshold=250, respacing_factor=5)
+    estimatehr = ekg.estimate_heart_rate()
+    fig3 = ekg.plot_time_series_with_peaks(peaks)
+
+    st.plotly_chart(fig3)

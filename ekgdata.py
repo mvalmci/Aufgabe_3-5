@@ -66,8 +66,46 @@ class EKGdata:
     def plot_time_series(self):
 
         # Erstellte einen Line Plot, der ersten 2000 Werte mit der Zeit aus der x-Achse
-        self.fig = px.line(self.df.head(2000), x="Zeit in ms", y="Messwerte in mV")
+        self.fig = px.line(self.df.head(10000), x="Zeit in ms", y="Messwerte in mV")
         #return self.fig
+
+
+    def estimate_heart_rate(self):
+        """Eine Funktion, die die Herzfrequenz schätzt"""
+        if len(self.peaks) < 2:
+            return "Not enough peaks found to estimate heart rate"
+        
+        # Berechne die Zeitdifferenz zwischen den Peaks
+        peak_intervals = [self.peaks[i+1] - self.peaks[i] for i in range(len(self.peaks)-1)]
+        
+        # Durchschnittliche Zeit zwischen den Peaks
+        avg_interval = sum(peak_intervals) / len(peak_intervals)  # in Sekunden
+        
+        # Herzfrequenz in bpm (Beats per Minute)
+        heart_rate1 = 60000 / avg_interval
+        heart_rate2 = heart_rate1 / 6  # in Beats per Minute (bpm)
+
+        return heart_rate2
+    
+    def plot_time_series_with_peaks(self, peaks):
+        self.plot_time_series()  # Basis-Zeitreihe zeichnen
+
+    # Extrahiere die Zeit- und Messwerte der Peaks anhand der Indizes
+        peak_zeiten = self.df['Zeit in ms'].iloc[peaks]
+        peak_werte = self.df['Messwerte in mV'].iloc[peaks]
+
+    # Peaks als rote Punkte hinzufügen
+        self.fig.add_scatter(
+            x=peak_zeiten,
+            y=peak_werte,
+            mode='markers',
+            name='Peaks',
+            marker=dict(color='red', size=8)
+        )
+        fig3 = self.fig
+        return fig3
+
+
 
 if __name__ == "__main__":
     file = open("data/person_db.json")
@@ -79,3 +117,5 @@ if __name__ == "__main__":
     ekg = EKGdata(ekg_dict)
     peaks = ekg.find_peaks(threshold=240)
     print(peaks)
+    estimatehr = ekg.estimate_heart_rate()
+    print(estimatehr)
