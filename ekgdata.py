@@ -113,9 +113,8 @@ if __name__ == "__main__":
     ekg_liste = person_data[0]["ekg_tests"]
 
     ekg_dict = EKGdata.load_ekg_data_by_id(ekg_liste, 2)
-    print(ekg_dict)
+
     ekg = EKGdata(ekg_dict)
     peaks = ekg.find_peaks(threshold=240)
-    print(peaks)
     estimatehr = ekg.estimate_heart_rate()
-    print(estimatehr)
+    
